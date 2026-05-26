@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-eid-green-dark: #0a1a0f;
+  --color-eid-green: #1a4731;
+  --color-eid-green-medium: #2d6a4f;
+  --color-eid-green-light: #40916c;
+  --color-eid-gold: #d4af37;
+  --color-eid-gold-light: #f0d060;
+  --color-eid-gold-muted: #c49c2a;
+  --color-eid-cream: #faf7f0;
+  --color-eid-cream-dark: #f0e8d5;
+
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.5s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(0.6); }
+}
+
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5)); }
+  50% { filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.95)); }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #faf7f0;
+  color: #1a1a1a;
+}
