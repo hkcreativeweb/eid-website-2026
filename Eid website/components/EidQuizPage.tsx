@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 const QUESTIONS = [
@@ -83,41 +83,54 @@ const RESULTS = [
   { min: 9,  max: 10, label: "Eid Expert! 🎉",         msg: "Mashallah! A perfect or near-perfect score. You are a true Eid scholar!",                       emoji: "🏆" },
 ];
 
+const AUTO_ADVANCE_MS = 1400;
+
 export default function EidQuizPage() {
   const [current, setCurrent]   = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore]       = useState(0);
   const [finished, setFinished] = useState(false);
   const [answers, setAnswers]   = useState<(number | null)[]>(Array(QUESTIONS.length).fill(null));
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const q = QUESTIONS[current];
   const result = RESULTS.find((r) => score >= r.min && score <= r.max)!;
   const pct = Math.round((score / QUESTIONS.length) * 100);
 
+  useEffect(() => {
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []);
+
   function choose(idx: number) {
     if (selected !== null) return;
+    const isCorrect = idx === q.answer;
     setSelected(idx);
     const newAnswers = [...answers];
     newAnswers[current] = idx;
     setAnswers(newAnswers);
-    if (idx === q.answer) setScore((s) => s + 1);
-  }
+    if (isCorrect) setScore((s) => s + 1);
 
-  function next() {
-    if (current + 1 >= QUESTIONS.length) {
-      setFinished(true);
-    } else {
-      setCurrent((c) => c + 1);
-      setSelected(null);
-    }
+    setCountdown(AUTO_ADVANCE_MS / 1000);
+    timerRef.current = setTimeout(() => {
+      setCountdown(null);
+      if (current + 1 >= QUESTIONS.length) {
+        setFinished(true);
+      } else {
+        setCurrent((c) => c + 1);
+        setSelected(null);
+      }
+    }, AUTO_ADVANCE_MS);
   }
 
   function restart() {
+    if (timerRef.current) clearTimeout(timerRef.current);
     setCurrent(0);
     setSelected(null);
     setScore(0);
     setFinished(false);
     setAnswers(Array(QUESTIONS.length).fill(null));
+    setCountdown(null);
   }
 
   return (
@@ -230,14 +243,14 @@ export default function EidQuizPage() {
                   })}
                 </div>
 
-                {/* Fact reveal */}
+                {/* Fact reveal + auto-advance bar */}
                 <AnimatePresence>
                   {selected !== null && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className={`rounded-2xl px-5 py-4 mb-5 border text-sm leading-relaxed ${
+                      className={`rounded-2xl px-5 py-4 border text-sm leading-relaxed ${
                         selected === q.answer
                           ? "bg-[#1a4731]/8 border-[#1a4731]/25 text-[#1a4731]"
                           : "bg-red-50 border-red-200 text-red-800"
@@ -247,21 +260,22 @@ export default function EidQuizPage() {
                         {selected === q.answer ? "✓ Correct! " : "✗ Not quite. "}
                       </span>
                       {q.fact}
+
+                      {/* Auto-advance progress bar */}
+                      <div className="mt-3 h-1 rounded-full bg-black/10 overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full ${selected === q.answer ? "bg-[#1a4731]" : "bg-red-400"}`}
+                          initial={{ width: "100%" }}
+                          animate={{ width: "0%" }}
+                          transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
+                        />
+                      </div>
+                      <p className="text-[10px] mt-1.5 opacity-50 text-right">
+                        {current + 1 >= QUESTIONS.length ? "Showing results…" : "Next question…"}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-                {/* Next button */}
-                {selected !== null && (
-                  <motion.button
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    onClick={next}
-                    className="w-full bg-[#1a4731] hover:bg-[#0f2b1f] text-white font-bold py-4 rounded-2xl transition-colors duration-200 text-base"
-                  >
-                    {current + 1 >= QUESTIONS.length ? "See Results →" : "Next Question →"}
-                  </motion.button>
-                )}
               </motion.div>
             ) : (
               /* Results screen */
