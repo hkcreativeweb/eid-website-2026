@@ -75,7 +75,7 @@ export default function HeroSection() {
   const current = GREETINGS[greetIdx];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a1a0f]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a1a0f] pt-20 pb-10">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#1a4731_0%,#0a1a0f_70%)]" />
 
@@ -105,7 +105,7 @@ export default function HeroSection() {
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full">
 
         {/* Rotating multilingual greeting */}
-        <div className="h-14 mb-3 flex items-center justify-center overflow-hidden">
+        <div className="h-16 mb-3 flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={greetIdx}
@@ -150,7 +150,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
-          className="text-[#d4af37]/30 text-8xl md:text-[9rem] font-black leading-none -mt-2 mb-1 select-none"
+          className="text-[#d4af37]/20 text-[5rem] md:text-[9rem] font-black leading-none -mt-4 mb-2 select-none"
         >
           2026
         </motion.div>
@@ -268,9 +268,6 @@ export default function HeroSection() {
 
       {/* Walking sheep */}
       <SheepAnimation />
-
-      {/* Bottom fade to cream */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#faf7f0] to-transparent" />
     </section>
   );
 }

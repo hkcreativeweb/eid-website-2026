@@ -38,7 +38,7 @@ export default function WhatIsEidSection() {
   return (
     <section
       id="about"
-      className="bg-[#faf7f0] py-24 px-6"
+      className="bg-[#faf7f0] py-24 px-6 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
         <motion.div
@@ -128,6 +128,9 @@ export default function WhatIsEidSection() {
           </cite>
         </motion.blockquote>
       </div>
+
+      {/* Transition strip to dark section */}
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-[#0a1a0f]" />
     </section>
   );
 }

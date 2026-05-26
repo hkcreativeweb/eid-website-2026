@@ -78,7 +78,7 @@ const facts = [
 
 export default function FactsSection() {
   return (
-    <section id="facts" className="bg-[#faf7f0] py-24 px-6">
+    <section id="facts" className="bg-[#faf7f0] py-24 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -129,6 +129,9 @@ export default function FactsSection() {
           ))}
         </div>
       </div>
+
+      {/* Transition strip to dark section */}
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-[#0a1a0f]" />
     </section>
   );
 }

@@ -138,6 +138,9 @@ export default function EidDatesSection() {
           </p>
         </motion.div>
       </div>
+
+      {/* Transition strip to light section */}
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-[#faf7f0]" />
     </section>
   );
 }

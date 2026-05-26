@@ -37,7 +37,7 @@ const GREETINGS = [
 
 export default function GreetingsSection() {
   return (
-    <section className="bg-[#0a1a0f] py-20 px-6 relative overflow-hidden">
+    <section className="bg-[#0a1a0f] py-20 px-6 relative overflow-hidden pb-0">
       {/* Subtle background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#1a4731_0%,transparent_65%)] opacity-30 pointer-events-none" />
 
@@ -128,11 +128,14 @@ export default function GreetingsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="text-center text-white/25 text-xs mt-10 tracking-wide"
+          className="text-center text-white/25 text-xs mt-10 mb-10 tracking-wide"
         >
           عيد مبارك · Eid Mubarak · ঈদ মোবারক · Bayramınız Mübarek · Ciid Wanaagsan · Barka da Sallah
         </motion.p>
       </div>
+
+      {/* Transition strip to light section */}
+      <div className="-mx-6 h-16 bg-gradient-to-b from-[#0a1a0f] to-[#faf7f0]" />
     </section>
   );
 }
