@@ -167,17 +167,17 @@ export default function HeroSection() {
             className="text-white/80 text-xl md:text-2xl font-medium"
             style={{ fontFamily: "serif" }}
           >
-            محمد حمزہ خالد کی جانب سے
+            محمد حمزہ کی جانب سے
           </p>
           <p
             dir="rtl"
             className="text-[#d4af37]/70 text-base md:text-lg"
             style={{ fontFamily: "serif" }}
           >
-            من محمد حمزة خالد — عيد أضحى مبارك
+            من محمد حمزة — عيد أضحى مبارك
           </p>
           <p className="text-white/40 text-sm tracking-wide">
-            from Muhammad Hamza Khalid
+            from Muhammad Hamza
           </p>
         </motion.div>
 
