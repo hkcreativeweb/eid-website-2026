@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "2026 Dates", href: "#dates" },
-  { label: "Facts", href: "#facts" },
-  { label: "Traditions", href: "#traditions" },
+  { label: "About",      href: "/#about",      external: false },
+  { label: "2026 Dates", href: "/#dates",       external: false },
+  { label: "Facts",      href: "/#facts",       external: false },
+  { label: "Traditions", href: "/#traditions",  external: false },
+  { label: "The Story",  href: "/story",        external: false },
 ];
 
 export default function Navbar() {
@@ -36,16 +38,27 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-white/80 hover:text-[#d4af37] transition-colors text-sm font-medium tracking-wide"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {links.map((l) =>
+            l.label === "The Story" ? (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="text-[#d4af37] border border-[#d4af37]/40 hover:bg-[#d4af37]/10 transition-colors text-sm font-semibold tracking-wide px-4 py-1.5 rounded-full"
+                >
+                  {l.label} ✦
+                </Link>
+              </li>
+            ) : (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="text-white/80 hover:text-[#d4af37] transition-colors text-sm font-medium tracking-wide"
+                >
+                  {l.label}
+                </a>
+              </li>
+            )
+          )}
         </ul>
 
         {/* Mobile toggle */}
@@ -83,17 +96,29 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-[#0a1a0f]/97 border-t border-[#d4af37]/20 px-6 py-4">
           <ul className="flex flex-col gap-4">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="text-white/80 hover:text-[#d4af37] transition-colors text-base font-medium"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {links.map((l) =>
+              l.label === "The Story" ? (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-[#d4af37] font-semibold text-base"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    The Story ✦
+                  </Link>
+                </li>
+              ) : (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    className="text-white/80 hover:text-[#d4af37] transition-colors text-base font-medium"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}
