@@ -16,6 +16,7 @@ const LINKS: NavLink[] = [
   { kind: "pill",   label: "Eid Guide",  href: "/guide"       },
   { kind: "pill",   label: "Quiz",       href: "/quiz"        },
   { kind: "pill",   label: "🐑 Game",    href: "/game"        },
+  { kind: "pill",   label: "🐏 Maze",    href: "/maze"        },
   { kind: "lang",   label: "اردو",       href: "/urdu",   flag: "🇵🇰" },
   { kind: "lang",   label: "বাংলা",      href: "/bengali", flag: "🇧🇩" },
 ];
