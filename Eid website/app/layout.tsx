@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import AudioPlayerClient from "@/components/AudioPlayerClient";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -15,7 +16,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} scroll-smooth`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <AudioPlayerClient />
+      </body>
     </html>
   );
 }
