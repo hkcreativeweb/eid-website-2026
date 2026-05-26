@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import AudioPlayerClient from "@/components/AudioPlayerClient";
+import BackToHomeButtonClient from "@/components/BackToHomeButtonClient";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <AudioPlayerClient />
+        <BackToHomeButtonClient />
       </body>
     </html>
   );

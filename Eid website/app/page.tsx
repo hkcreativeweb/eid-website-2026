@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import GreetingsSection from "@/components/GreetingsSection";
 import WhatIsEidSection from "@/components/WhatIsEidSection";
 import EidDatesSection from "@/components/EidDatesSection";
 import FactsSection from "@/components/FactsSection";
@@ -11,6 +12,7 @@ export default function Home() {
     <main>
       <Navbar />
       <HeroSection />
+      <GreetingsSection />
       <WhatIsEidSection />
       <EidDatesSection />
       <FactsSection />
