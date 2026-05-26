@@ -2,17 +2,24 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const links = [
-  { label: "About",      href: "/#about",      external: false },
-  { label: "2026 Dates", href: "/#dates",       external: false },
-  { label: "Facts",      href: "/#facts",       external: false },
-  { label: "Traditions", href: "/#traditions",  external: false },
-  { label: "The Story",  href: "/story",        external: false },
+type NavLink =
+  | { kind: "anchor"; label: string; href: string }
+  | { kind: "pill";   label: string; href: string }
+  | { kind: "lang";   label: string; href: string; flag: string };
+
+const LINKS: NavLink[] = [
+  { kind: "anchor", label: "About",      href: "/#about"      },
+  { kind: "anchor", label: "2026 Dates", href: "/#dates"      },
+  { kind: "anchor", label: "Facts",      href: "/#facts"      },
+  { kind: "anchor", label: "Traditions", href: "/#traditions" },
+  { kind: "pill",   label: "The Story",  href: "/story"       },
+  { kind: "lang",   label: "اردو",       href: "/urdu",   flag: "🇵🇰" },
+  { kind: "lang",   label: "বাংলা",      href: "/bengali", flag: "🇧🇩" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -29,64 +36,65 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <CrescentStar className="w-8 h-8" />
           <span className="text-[#d4af37] font-bold text-xl tracking-wide">
             Eid <span className="text-white">2026</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
-          {links.map((l) =>
-            l.label === "The Story" ? (
+        <ul className="hidden lg:flex items-center gap-5">
+          {LINKS.map((l) => {
+            if (l.kind === "anchor")
+              return (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    className="text-white/80 hover:text-[#d4af37] transition-colors text-sm font-medium"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              );
+            if (l.kind === "pill")
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-[#d4af37] border border-[#d4af37]/40 hover:bg-[#d4af37]/10 transition-colors text-sm font-semibold px-3 py-1.5 rounded-full"
+                  >
+                    {l.label} ✦
+                  </Link>
+                </li>
+              );
+            // lang
+            return (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="text-[#d4af37] border border-[#d4af37]/40 hover:bg-[#d4af37]/10 transition-colors text-sm font-semibold tracking-wide px-4 py-1.5 rounded-full"
+                  className="text-white/60 hover:text-white border border-white/15 hover:border-white/35 transition-colors text-sm font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5"
                 >
-                  {l.label} ✦
+                  <span>{l.flag}</span>
+                  <span>{l.label}</span>
                 </Link>
               </li>
-            ) : (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="text-white/80 hover:text-[#d4af37] transition-colors text-sm font-medium tracking-wide"
-                >
-                  {l.label}
-                </a>
-              </li>
-            )
-          )}
+            );
+          })}
         </ul>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-white"
+          className="lg:hidden text-white"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Toggle menu"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
@@ -94,31 +102,46 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#0a1a0f]/97 border-t border-[#d4af37]/20 px-6 py-4">
+        <div className="lg:hidden bg-[#0a1a0f]/97 border-t border-[#d4af37]/20 px-6 py-5">
           <ul className="flex flex-col gap-4">
-            {links.map((l) =>
-              l.label === "The Story" ? (
+            {LINKS.map((l) => {
+              if (l.kind === "anchor")
+                return (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="text-white/80 hover:text-[#d4af37] transition-colors text-base font-medium"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              if (l.kind === "pill")
+                return (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="text-[#d4af37] font-semibold text-base"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {l.label} ✦
+                    </Link>
+                  </li>
+                );
+              return (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-[#d4af37] font-semibold text-base"
+                    className="text-white/60 hover:text-white transition-colors text-base font-medium flex items-center gap-2"
                     onClick={() => setMenuOpen(false)}
                   >
-                    The Story ✦
+                    <span>{l.flag}</span>
+                    <span>{l.label}</span>
                   </Link>
                 </li>
-              ) : (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-white/80 hover:text-[#d4af37] transition-colors text-base font-medium"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              )
-            )}
+              );
+            })}
           </ul>
         </div>
       )}
