@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import SheepAnimation from "./SheepAnimation";
 
 // ── Multilingual greetings ──────────────────────────────────────────────────
 const GREETINGS = [
@@ -264,6 +265,9 @@ export default function HeroSection() {
           </motion.span>
         </motion.a>
       </div>
+
+      {/* Walking sheep */}
+      <SheepAnimation />
 
       {/* Bottom fade to cream */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#faf7f0] to-transparent" />
