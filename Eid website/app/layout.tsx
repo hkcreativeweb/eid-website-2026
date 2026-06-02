@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { CartProvider } from "@/lib/cart-context";
 import AudioPlayerClient from "@/components/AudioPlayerClient";
 import BackToHomeButtonClient from "@/components/BackToHomeButtonClient";
+import CartDrawer from "@/components/CartDrawer";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -18,9 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} scroll-smooth`}>
       <body className="antialiased">
-        {children}
-        <AudioPlayerClient />
-        <BackToHomeButtonClient />
+        <CartProvider>
+          {children}
+          <CartDrawer />
+          <AudioPlayerClient />
+          <BackToHomeButtonClient />
+        </CartProvider>
       </body>
     </html>
   );

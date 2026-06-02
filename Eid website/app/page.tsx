@@ -5,6 +5,7 @@ import WhatIsEidSection from "@/components/WhatIsEidSection";
 import EidDatesSection from "@/components/EidDatesSection";
 import FactsSection from "@/components/FactsSection";
 import TraditionsSection from "@/components/TraditionsSection";
+import ShopSection from "@/components/ShopSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <EidDatesSection />
       <FactsSection />
       <TraditionsSection />
+      <ShopSection />
       <Footer />
     </main>
   );
