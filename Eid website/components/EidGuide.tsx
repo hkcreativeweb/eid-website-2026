@@ -190,7 +190,7 @@ export default function EidGuide() {
               <span className="text-[#d4af37]">Eid Prayer</span>
             </h2>
             <p className="text-white/50 mt-3 text-sm max-w-md mx-auto">
-              The Eid prayer (Salat al-Eid) is 2 rak'ahs with additional Takbeers. Here's exactly what happens.
+              The Eid prayer (Salat al-Eid) is 2 rak&apos;ahs with additional Takbeers. Here&apos;s exactly what happens.
             </p>
 
             {/* Key fact banner */}
@@ -227,7 +227,7 @@ export default function EidGuide() {
 
           {/* Madhab note */}
           <motion.p {...fade(0.4)} className="text-white/25 text-xs text-center mt-8 max-w-md mx-auto leading-relaxed">
-            Note: The number of extra Takbeers may vary slightly between madhabs (schools of jurisprudence). The above follows the Hanafi and Shafi'i method most common in South Asia and Southeast Asia. Consult your local imam if unsure.
+            Note: The number of extra Takbeers may vary slightly between madhabs (schools of jurisprudence). The above follows the Hanafi and Shafi&apos;i method most common in South Asia and Southeast Asia. Consult your local imam if unsure.
           </motion.p>
         </div>
 
@@ -241,7 +241,7 @@ export default function EidGuide() {
             <span className="text-[#d4af37] text-xs font-bold tracking-[0.35em] uppercase">Rest of the day</span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#0a1a0f] mt-3">After the Prayer</h2>
             <p className="text-[#4a5568] mt-3 text-sm max-w-md mx-auto">
-              The prayer is just the beginning — here's how to spend the rest of your blessed Eid day.
+              The prayer is just the beginning — here&apos;s how to spend the rest of your blessed Eid day.
             </p>
           </motion.div>
 

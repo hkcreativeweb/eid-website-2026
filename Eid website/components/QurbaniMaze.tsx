@@ -175,7 +175,7 @@ function DPad({ onMove }: { onMove:(dr:number,dc:number)=>void }) {
 }
 
 // ── Legend ──────────────────────────────────────────────────────────────────
-function Legend({ cellSize }: { cellSize: number }) {
+function Legend() {
   return (
     <div className="flex flex-wrap gap-2 justify-center mt-4">
       {SHEEP.map(s => (
@@ -232,7 +232,7 @@ export default function QurbaniMaze() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   function doMove(dr: number, dc: number) {
     const p = playerRef.current;
@@ -386,7 +386,7 @@ export default function QurbaniMaze() {
                 <p className="text-center text-[#9ca3af] text-xs mb-1">👣 {steps} steps taken</p>
 
                 {/* Legend */}
-                <Legend cellSize={cellSize} />
+                <Legend />
 
                 {/* D-pad */}
                 <DPad onMove={doMove} />

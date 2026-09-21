@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Orders Dashboard — Eid Shop Admin",
   description: "View and manage all customer orders from the Eid gift shop.",
+  robots: { index: false, follow: false },
 };
 
 export default function OrdersRoute() {

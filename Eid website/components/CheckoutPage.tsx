@@ -4,18 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 📬 ORDER DELIVERY CONFIGURATION
-//
-// Orders are emailed to you automatically via two channels:
-//  1. A mailto link opens in the user's browser (works instantly, no setup)
-//  2. Formspree (optional, more reliable) — sign up at https://formspree.io
-//     → Create a free account with hkcreativeweb@gmail.com
-//     → Create a new form → copy the Form ID (e.g. "xabc1234")
-//     → Paste it below to replace "YOUR_FORMSPREE_ID"
-// ─────────────────────────────────────────────────────────────────────────────
-const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // Replace this with your Formspree form ID
-const OWNER_EMAIL  = "hkcreativeweb@gmail.com";
+// Demo checkout: the order is stored locally and a pre-filled email opens
+// via a mailto link — no backend or third-party form service required.
+const OWNER_EMAIL = "hkcreativeweb@gmail.com";
 
 type FormData = {
   fullName: string;
@@ -66,7 +57,7 @@ export default function CheckoutPage() {
     return Object.keys(e).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
     setStatus("submitting");
@@ -126,31 +117,10 @@ ${form.notes || "(none)"}
       localStorage.setItem("eid-orders", JSON.stringify(existing));
     } catch {}
 
-    // Try Formspree (if configured)
-    let formspreeOk = false;
-    if (FORMSPREE_ID !== "YOUR_FORMSPREE_ID") {
-      try {
-        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            orderId: id, name: form.fullName, email: form.email, phone: form.phone,
-            address: `${form.address}, ${form.city}, ${form.postcode}, ${form.country}`,
-            payment: form.paymentMethod, total: `£${grandTotal.toFixed(2)}`,
-            items: cartProducts.map(({ product, qty }) => `${product.name} × ${qty} — £${(product.price * qty).toFixed(2)}`).join("; "),
-            notes: form.notes,
-          }),
-        });
-        formspreeOk = res.ok;
-      } catch {}
-    }
-
-    // Mailto fallback — opens email client with full order details
-    if (!formspreeOk) {
-      const subject = encodeURIComponent(`New Order ${id} — ${form.fullName}`);
-      const body    = encodeURIComponent(orderBody);
-      window.open(`mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`, "_blank");
-    }
+    // Open a pre-filled email with the full order details
+    const subject = encodeURIComponent(`New Order ${id} — ${form.fullName}`);
+    const body    = encodeURIComponent(orderBody);
+    window.open(`mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`, "_blank");
 
     clearCart();
     setStatus("success");
@@ -197,7 +167,7 @@ ${form.notes || "(none)"}
   }
 
   // ── Empty cart ──────────────────────────────────────────────────────────────
-  if (cartProducts.length === 0 && status !== "success") {
+  if (cartProducts.length === 0) {
     return (
       <section className="min-h-screen bg-[#faf7f0] flex items-center justify-center px-6">
         <div className="text-center">
@@ -439,8 +409,10 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label className="block text-xs font-semibold text-[#374151] mb-1.5">{label}</label>
-      {children}
+      <label className="block">
+        <span className="block text-xs font-semibold text-[#374151] mb-1.5">{label}</span>
+        {children}
+      </label>
       <AnimatePresence>
         {error && (
           <motion.p

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
+import { SITE_URL } from "@/lib/site";
 import AudioPlayerClient from "@/components/AudioPlayerClient";
 import BackToHomeButtonClient from "@/components/BackToHomeButtonClient";
 import CartDrawer from "@/components/CartDrawer";
@@ -9,6 +10,7 @@ import "./globals.css";
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Eid Mubarak 2026 — Facts, Dates & Traditions",
   description:
     "Discover everything about Eid al-Fitr and Eid al-Adha 2026 — history, traditions, dates, and fascinating facts about the world's most celebrated Islamic festivals.",

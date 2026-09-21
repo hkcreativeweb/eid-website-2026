@@ -91,7 +91,6 @@ export default function EidQuizPage() {
   const [score, setScore]       = useState(0);
   const [finished, setFinished] = useState(false);
   const [answers, setAnswers]   = useState<(number | null)[]>(Array(QUESTIONS.length).fill(null));
-  const [countdown, setCountdown] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const q = QUESTIONS[current];
@@ -111,9 +110,7 @@ export default function EidQuizPage() {
     setAnswers(newAnswers);
     if (isCorrect) setScore((s) => s + 1);
 
-    setCountdown(AUTO_ADVANCE_MS / 1000);
     timerRef.current = setTimeout(() => {
-      setCountdown(null);
       if (current + 1 >= QUESTIONS.length) {
         setFinished(true);
       } else {
@@ -130,7 +127,6 @@ export default function EidQuizPage() {
     setScore(0);
     setFinished(false);
     setAnswers(Array(QUESTIONS.length).fill(null));
-    setCountdown(null);
   }
 
   return (

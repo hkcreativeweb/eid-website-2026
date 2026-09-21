@@ -2,7 +2,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
-import { CATEGORY_META } from "@/lib/products";
 
 export default function CartDrawer() {
   const { isOpen, setIsOpen, cartProducts, totalPrice, totalItems, updateQty, removeFromCart } = useCart();
@@ -68,7 +67,6 @@ export default function CartDrawer() {
                 </div>
               ) : (
                 cartProducts.map(({ product, qty }) => {
-                  const meta = CATEGORY_META[product.category];
                   return (
                     <div key={product.id} className="flex gap-3 bg-[#faf7f0] rounded-2xl p-3 border border-[#f0e8d5]">
                       {/* Product icon */}

@@ -178,7 +178,7 @@ export default function EidAdhaUrduPage() {
               className="text-white/80 text-lg leading-relaxed"
               style={{ fontFamily: "'Noto Nastaliq Urdu', serif" }}
             >
-              "پس اپنے رب کے لیے نماز پڑھو اور قربانی کرو۔"
+              &ldquo;پس اپنے رب کے لیے نماز پڑھو اور قربانی کرو۔&rdquo;
             </p>
             <cite className="text-[#d4af37]/60 text-sm mt-2 block not-italic">
               — سورۃ الکوثر: ۲

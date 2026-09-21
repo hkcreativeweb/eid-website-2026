@@ -179,7 +179,7 @@ export default function EidAdhaBengaliPage() {
               className="text-white/80 text-lg leading-relaxed"
               style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}
             >
-              "অতএব তোমার রবের উদ্দেশ্যে সালাত আদায় করো এবং কুরবানি দাও।"
+              &ldquo;অতএব তোমার রবের উদ্দেশ্যে সালাত আদায় করো এবং কুরবানি দাও।&rdquo;
             </p>
             <cite className="text-[#d4af37]/60 text-sm mt-2 block not-italic"
               style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}

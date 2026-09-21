@@ -6,6 +6,8 @@ export default function SheepAnimation() {
   const [vw, setVw] = useState(1600);
 
   useEffect(() => {
+    // window is only available client-side, so the real width is read on mount
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVw(window.innerWidth);
     const onResize = () => setVw(window.innerWidth);
     window.addEventListener("resize", onResize);

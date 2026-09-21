@@ -25,8 +25,10 @@ export default function OrdersAdmin() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
+    // localStorage is only available client-side, so orders are hydrated on mount
     try {
       const stored = JSON.parse(localStorage.getItem("eid-orders") || "[]");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOrders(stored);
     } catch {}
   }, []);

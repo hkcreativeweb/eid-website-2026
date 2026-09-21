@@ -79,8 +79,6 @@ export default function AudioPlayer() {
     }
   }, [playing, missing]);
 
-  if (!visible) return null;
-
   return (
     <>
       {/* Hidden audio element — place eid.mp3 in /public/audio/ */}
@@ -95,7 +93,8 @@ export default function AudioPlayer() {
         onPause={() => setPlaying(false)}
       />
 
-      {/* Floating player */}
+      {visible && !missing && (
+      /* Floating player */
       <motion.div
         className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -104,7 +103,7 @@ export default function AudioPlayer() {
       >
         {/* Expanded panel — volume control */}
         <AnimatePresence>
-          {expanded && !missing && (
+          {expanded && (
             <motion.div
               initial={{ opacity: 0, y: 8, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -142,33 +141,28 @@ export default function AudioPlayer() {
         {/* Main button */}
         <div className="flex items-center gap-2">
           {/* Gear / settings toggle */}
-          {!missing && (
-            <motion.button
-              onClick={() => setExpanded((e) => !e)}
-              className="w-9 h-9 rounded-full bg-[#0a1a0f]/70 border border-white/10 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors backdrop-blur-sm"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Audio settings"
-            >
-              <svg viewBox="0 0 20 20" className="w-4 h-4" fill="currentColor">
-                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
-              </svg>
-            </motion.button>
-          )}
+          <motion.button
+            onClick={() => setExpanded((e) => !e)}
+            className="w-9 h-9 rounded-full bg-[#0a1a0f]/70 border border-white/10 flex items-center justify-center text-white/40 hover:text-white/70 transition-colors backdrop-blur-sm"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Audio settings"
+          >
+            <svg viewBox="0 0 20 20" className="w-4 h-4" fill="currentColor">
+              <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
+            </svg>
+          </motion.button>
 
           {/* Play / Pause pill */}
           <motion.button
             onClick={toggle}
-            disabled={missing}
             className={`flex items-center gap-2.5 px-4 py-2.5 rounded-full font-semibold text-sm shadow-xl backdrop-blur-sm select-none transition-all duration-300 ${
-              missing
-                ? "bg-white/5 border border-white/10 text-white/25 cursor-not-allowed"
-                : playing
+              playing
                 ? "bg-[#d4af37] text-[#0a1a0f] shadow-[0_0_20px_rgba(212,175,55,0.4)]"
                 : "bg-[#0a1a0f]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#0a1a0f]/95"
             }`}
-            whileHover={missing ? {} : { scale: 1.04 }}
-            whileTap={missing ? {} : { scale: 0.96 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             aria-label={playing ? "Pause Eid music" : "Play Eid music"}
           >
             {playing ? (
@@ -181,13 +175,6 @@ export default function AudioPlayer() {
                 <svg viewBox="0 0 20 20" className="w-4 h-4 flex-shrink-0" fill="currentColor">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"/>
                 </svg>
-              </>
-            ) : missing ? (
-              <>
-                <svg viewBox="0 0 20 20" className="w-4 h-4" fill="currentColor">
-                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 1.414L12.414 10l1.293 1.293a1 1 0 01-1.414 1.414L11 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L9.586 10 8.293 8.707a1 1 0 011.414-1.414L11 8.586l1.293-1.293z" clipRule="evenodd"/>
-                </svg>
-                <span>No audio file</span>
               </>
             ) : (
               <>
@@ -207,21 +194,8 @@ export default function AudioPlayer() {
             )}
           </motion.button>
         </div>
-
-        {/* "Add audio file" hint when missing */}
-        <AnimatePresence>
-          {missing && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-white/30 text-[10px] text-right max-w-[180px] leading-tight"
-            >
-              Add an MP3 to{" "}
-              <code className="text-[#d4af37]/50 font-mono">/public/audio/eid.mp3</code>
-            </motion.p>
-          )}
-        </AnimatePresence>
       </motion.div>
+      )}
     </>
   );
 }

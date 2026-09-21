@@ -31,13 +31,13 @@ export default function Footer() {
         <p className="text-white/40 text-sm mb-6">Eid Mubarak — Blessed Eid</p>
 
         <nav className="flex flex-wrap justify-center gap-6 text-sm text-white/40 mb-8">
-          {["#about", "#dates", "#facts", "#traditions"].map((href) => (
+          {["about", "dates", "facts", "traditions"].map((section) => (
             <a
-              key={href}
-              href={href}
+              key={section}
+              href={`/#${section}`}
               className="hover:text-[#d4af37] transition-colors capitalize"
             >
-              {href.replace("#", "")}
+              {section}
             </a>
           ))}
         </nav>
