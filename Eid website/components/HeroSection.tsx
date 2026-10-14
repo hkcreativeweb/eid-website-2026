@@ -75,7 +75,9 @@ export default function HeroSection() {
   const current = GREETINGS[greetIdx];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a1a0f] pt-20 pb-10">
+    // Below lg, extra top padding starts the content beneath the crescent. At every size, the bottom
+    // padding reserves a lane for the walking sheep, so neither decoration overlaps the text.
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a1a0f] pt-40 pb-40 sm:pt-48 lg:pt-20">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#1a4731_0%,#0a1a0f_70%)]" />
 
@@ -92,13 +94,13 @@ export default function HeroSection() {
         </motion.div>
       ))}
 
-      {/* Floating crescent */}
+      {/* Floating crescent: small and tucked into the top corner on phones/tablets so it clears the heading */}
       <motion.div
-        className="absolute right-[5%] top-[10%] md:right-[8%] md:top-[8%]"
+        className="absolute right-[4%] top-20 sm:top-24 lg:right-[8%] lg:top-[8%]"
         animate={{ y: [0, -20, 0], rotate: [-2, 2, -2] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <CrescentMoon className="w-44 h-44 md:w-64 md:h-64 opacity-90" />
+        <CrescentMoon className="w-20 h-20 sm:w-28 sm:h-28 lg:w-64 lg:h-64 opacity-80 lg:opacity-90" />
       </motion.div>
 
       {/* ── Main content ── */}

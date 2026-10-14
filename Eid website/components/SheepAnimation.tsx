@@ -15,7 +15,7 @@ export default function SheepAnimation() {
   }, []);
 
   return (
-    <div className="absolute bottom-20 left-0 right-0 overflow-hidden pointer-events-none h-36">
+    <div className="absolute bottom-2 left-0 right-0 overflow-hidden pointer-events-none h-36">
       {/* Walking motion across the screen */}
       <motion.div
         className="absolute bottom-2"
